@@ -1,0 +1,108 @@
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>bots</title>
+</head>
+<style>
+	body {
+		background: linear-gradient(to right, cadetblue, cornflowerblue );
+	}
+	.cards {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.style-cards {
+		display: flex;
+		flex-direction: column;
+		height: 200px;
+		width: 100%;
+		background-color: lightcyan;
+		/*outline: 4px solid black;*/
+		border-radius: 20px;
+		align-items: center;
+		text-align: center;
+		margin-left: 10px;
+		margin-top: 10px;
+
+	}
+
+	@media (min-width: 750px) {
+		.style-cards {
+			width: 250px;
+			height: 180px;
+			margin-top: 0px;
+			transition: 0.2s;
+		}
+
+		.style-cards:hover {
+			transform: scale(1.1);
+			transform-origin: top left;
+			box-shadow: 2px 2px 15px 0px;
+			transition: 0.2s;
+		}
+	}
+
+	.style-title-card {
+		font-family: monospace;
+		font-weight: bold;
+		color: black;
+		text-transform: uppercase;
+		border-bottom: 2px solid black;
+
+	}
+
+	.style-button-card {
+		background-color: limegreen;
+		border-radius: 12px;
+		height: 45px;
+		width: 90%;
+		margin-top: auto;
+		margin-bottom: 20px;
+		border: none;
+		color: white;
+		font-family: sans-serif;
+		font-size: 25px;
+		cursor: pointer;
+
+	}
+</style>
+<body>
+	<div class="conteiner">
+		<div class="cards">
+			
+		</div>
+	</div>
+</body>
+
+<script>
+async function dados() {
+	let a = await fetch('https://raw.githubusercontent.com/isaax-dev/json-bots/refs/heads/main/js.json')
+	let lista = await a.json()
+	var pai = document.querySelector('.cards')
+	for (let bot of lista) {
+		const card = document.createElement('div')
+		const titleCard = document.createElement('h2')
+		const btnCard = document.createElement('button')
+
+		btnCard.innerText = 'convidar'
+		titleCard.innerText = bot["nome"]
+		titleCard.classList.add('style-title-card')
+		card.classList.add('style-cards')
+		btnCard.classList.add('style-button-card')
+
+		pai.appendChild(card)
+		card.appendChild(titleCard)
+		card.appendChild(btnCard)
+
+		btnCard.addEventListener('click', function() {
+			const url = bot["invite"]
+			window.open(url, "_blank")
+		})
+	}
+}
+
+dados()
+</script>
+
+</html>

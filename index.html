@@ -1,0 +1,178 @@
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>server moldes</title>
+</head>
+
+<style>body {background: #2a2a2a;color: floralwhite;}.style-cards {background-color: darkgray;outline: 2px solid white;border-radius: 10px;width: 400px;height: 140px;text-align: center;margin-top: 20px;}.style-title {color: whitesmoke;font-family: arial;text-transform: uppercase;}.style-button {background-color: darkslateblue;
+		border: none;border-radius: 15px;width: 80%;height: 40px;margin-top: auto;color: white;font-weight: bold;font-size: 17px;cursor: pointer;}.style-button:hover {box-shadow: 1px 1px 10px 0px black;backdrop-filter: blur(8px);transition: 0.2s;}.servers {display: flex;flex-direction: column;}.conteiner {display: grid;grid-template-columns: repeat(1, 1fr);place-items: center;height: auto;}@media (min-width: 770px) {.style-cards {width: 700px;}}.apoie {position: fixed;height: 50px;width: 50px;border-radius: 100px;font-size: 30px;border: none;text-align: center;z-index: 999;bottom: 10px;left: 1px; box-shadow: 0px 1px 10px 0 cyan;}.apoie:hover{opacity: 0.5;}
+		.popup {
+			display: flex;
+			flex-direction: column;
+			background-color: darkgray;
+			z-index: 999;
+			position: fixed;
+			height: 300px;
+			width: 300px;
+			border-radius: 20px;
+			bottom: 100px;
+			left: 10px;
+			align-items: center;
+			justify-content: center;
+			outline: 2px solid cyan;
+			visibility: hidden;
+			box-shadow: 2px 2px 15px 0px cyan;
+		}
+
+		.style-popup-hidden {
+			visibility: hidden;
+
+		}
+
+		.style-popup-visible {
+			visibility: visible;
+		}
+
+		.b1, .b2 {
+			width: 90%;
+			height: 50px;
+			border-radius: 50px;
+			border: none;
+			margin-top: 15px;
+			font-weight: bold;
+			font-size: 15px;
+			text-transform: uppercase;
+		}
+
+		.titulo-card {
+			font-family: arial;
+			text-transform: uppercase;
+			text-decoration: underline;
+			font-size: 30px;
+		}
+
+		.b1 {
+			background-color: black;
+			outline: 2px solid deeppink;
+			color: white;
+
+		}
+
+		.b2 {
+			background-color: darkblue;
+			color: white;
+		}
+
+		.embreve {
+			display: flex;
+			justify-content: center;
+		}
+
+		.ctx {
+			font-family: helvetica;
+		}
+
+		li {
+			font-family: monospace;
+			font-size: 14px;
+		}
+
+		.bots {
+			position: fixed;
+			bottom: 70px;
+			left: 1px;
+			height: 50px;
+			width: 50px;
+			border: none;
+			border-radius: 50px;
+			background-color: lightblue;
+			cursor: pointer;
+		}
+
+		.rb {
+			height: 30px;
+			width: 30px;
+		}
+		</style>
+<body><div class="conteiner"><div class="servers"></div></div><button class="apoie">😁</button>
+	<div class="popup">
+		<h1 class="titulo-card">Apoie-me</h1>
+		<button class="b1">tiktok</button>
+		<button class="b2">discord</button>
+	</div>
+	<button class="bots"><img src="robo.png" alt="imagem robo" class="rb"></button>
+	<div class="embreve">
+		<h2 class="ctx">Em breve:</h2>
+		<ul class="lista">
+			<li class="item1">Aba de bots para serem adicionados diretamente</li>
+			<li class="item2">Mais templates de servidores</li>
+			<li class="item3">Modelos de bots para você criar</li>
+		</ul>
+	</div>
+</body>
+<script>	
+	var pai = document.querySelector('.servers');
+	async function criarCard() {
+		let list = await fetch('https://raw.githubusercontent.com/isaax-dev/jsonserversdiscord/refs/heads/main/srvrs.json')
+		let lista = await list.json()
+		for (let sv of lista) {
+			const card = document.createElement('div');
+			const cardTitle = document.createElement('h2');
+			const btModel = document.createElement('button');
+
+
+			card.classList.add('style-cards');
+			cardTitle.classList.add('style-title');
+			btModel.innerText = 'Usar modelo';
+			btModel.classList.add('style-button');
+			cardTitle.innerText = sv["nome"];
+
+
+			pai.appendChild(card);
+			card.appendChild(cardTitle);
+			card.appendChild(btModel);
+			btModel.addEventListener('click', function() {
+				const url =  sv["modelo"];
+				window.open(url, '_blank');
+			});
+		};
+	};
+	criarCard();
+</script>
+
+<script>
+	var btnApoie = document.querySelector('.apoie')
+	var pop = document.querySelector('.popup')
+	var ativo = true
+	btnApoie.addEventListener('click', function() {
+		if (ativo == true) {
+			pop.classList.remove('style-popup-hidden')
+			pop.classList.add('style-popup-visible')
+			ativo = false
+		} else {
+			pop.classList.remove('style-popup-visible')
+			pop.classList.add('style-popup-hidden')
+			ativo = true
+		}
+
+	});
+
+	var btDiscord = document.querySelector('.b2')
+	var btTk = document.querySelector('.b1')
+
+	btDiscord.addEventListener('click', function() {
+		const url = 'https://discord.gg/eZxPhceqDB';
+		window.open(url);
+	});
+	btTk.addEventListener('click', function() {
+		alert('Esqueci do link kkkkk')
+	});
+
+	const btnBots = document.querySelector('.bots')
+	btnBots.addEventListener('click', function() {
+		const page = 'botspage.html'
+		window.open(page, '_blank')
+	})
+</script>
+</html>
